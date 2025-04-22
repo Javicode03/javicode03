@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>INICIAR COMO ADMINISTRADOR</h1>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="cart.html">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="admin-container">
+        <div class="login-wrapper">
+            <div class="login-header">
+                <div class="login-icon">👤</div>
+                <h2>Acceso Administrativo</h2>
+                <p class="login-subtitle">Ingrese sus credenciales para continuar</p>
+            </div>
+            <form class="admin-form">
+                <fieldset>
+                    <legend>Credenciales</legend>
+                    <div class="form-group">
+                        <label for="username">Usuario</label>
+                        <div class="input-with-icon">
+                            <i class="user-icon">👤</i>
+                            <input type="text" id="username" required placeholder="Ingrese su usuario">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-with-icon">
+                            <i class="password-icon">🔒</i>
+                            <input type="password" id="password" required placeholder="Ingrese su contraseña">
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="submit-btn">
+                    <span>Iniciar Sesión</span>
+                    <i class="arrow-icon">→</i>
+                </button>
+            </form>
+        </div>
+    </main>
+    <script src="admin.js"></script>
+</body>
+</html>

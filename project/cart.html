@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Tienda de Alimentos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Carrito de Compras</h1>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="admin.html">ADMINISTRADOR</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="cart-items">
+            <div class="volverInicio">
+                <a href="index.html">Volver al inicio</a>
+            </div>
+            <div class="cart-container">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <!-- Items will be added here dynamically -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">Total:</td>
+                            <td id="cart-total">$0.00</td>
+                            <td>
+                                <button onclick="clearCart()" class="clear-cart">Vaciar Carrito</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="cart-actions">
+                    <button onclick="sendToWhatsApp()" class="submit-btn">Realizar Pedido por WhatsApp</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <section class="about-section">
+                <h3>Sobre Nosotros</h3>
+                <p>Tienda de alimentos comprometida con la calidad y el servicio al cliente.</p>
+            </section>
+            <section class="contact-section">
+                <h3>Contacto</h3>
+                <p>Email: jmora03101@gmail.com</p>
+                <p>Teléfono: +53 5554 3577</p>
+            </section>
+            <section class="social-section">
+                <h3>Síguenos</h3>
+                <p>Redes sociales</p>
+                <ul class="social-links">
+                    <li><a href="https://www.facebook.com/profile.php?id=100022601491740&mibextid=JRoKGi" class="facebook">Facebook</a></li>
+                    <li><a href="https://wa.me/5355543577" class="whatsapp">WhatsApp</a></li>
+                </ul>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tienda de Alimentos. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="menu.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
