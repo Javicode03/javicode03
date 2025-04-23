@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tienda de Alimentos</title>
+    <base href="/tienda-alimentos/">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Tienda de Alimentos</h1>
+            <p>En Tienda de Alimentos, nos comprometemos a ofrecer productos frescos y de calidad, garantizando la satisfacción y confianza de nuestros clientes.</p>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <nav>
+            <ul>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="cart.html">Carrito</a></li>
+                <li><a href="admin.html">ADMINISTRADOR</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>Bienvenidos</h2>
+            <div class="about-content">
+                <p>Somos una empresa dedicada a brindar los mejores productos alimenticios de calidad a nuestros clientes.</p>
+                <p>Con años de experiencia en el mercado, nos enorgullece ofrecer:</p>
+                <ul class="services-list">
+                    <li>Productos alimenticios selectos</li>
+                    <li>Servicio de envío a domicilio</li>
+                    <li>Atención personalizada</li>
+                </ul>
+
+                <div class="remesas-section">
+                    <h3>Servicio de Remesas</h3>
+                    <p>Realizamos transferencias seguras vía Zelle</p>
+                    <p>Proceso rápido y confiable</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="home">
+            <h2>Bienvenido a nuestra empresa</h2>
+            <p>Encuentra los mejores productos de calidad.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <section class="about-section">
+                <h3>Sobre Nosotros</h3>
+                <p>Empresa de productos comprometida con la calidad y el servicio al cliente.</p>
+            </section>
+            <section class="contact-section">
+                <h3>Contacto</h3>
+                <p>Email: jmora03101@gmail.com</p>
+                <p>Teléfono: +53 5554 3577</p>
+            </section>
+            <section class="social-section">
+                <h3>Síguenos</h3>
+                <p>Redes sociales</p>
+                <ul class="social-links">
+                    <li><a href="https://www.facebook.com/profile.php?id=100022601491740&mibextid=JRoKGi" class="facebook">Facebook</a></li>
+                    <li><a href="https://wa.me/5355543577" class="whatsapp">WhatsApp</a></li>
+                </ul>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tienda de Alimentos. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.querySelector('nav ul');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+    <script src="menu.js"></script>
+</body>
+</html>

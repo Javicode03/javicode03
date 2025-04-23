@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Tienda de Alimentos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Productos</h1>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="cart.html">Carrito</a></li>
+                <li><a href="admin.html">ADMINISTRADOR</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="category-tabs">
+            <div class="category-tab"><a href="#confituras">Confituras</a></div>
+            <div class="category-tab"><a href="#comidas">Comida</a></div>
+            <div class="category-tab"><a href="#bebidas">Bebidas</a></div>
+        </div>
+
+        <section id="confituras" class="product-category">
+            <h2>Confituras</h2>
+            <div class="product-grid"></div>
+        </section>
+
+        <section id="comidas" class="product-category">
+            <h2>Comidas</h2>
+            <div class="product-grid"></div>
+        </section>
+
+        <section id="bebidas" class="product-category">
+            <h2>Bebidas</h2>
+            <div class="product-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <section class="about-section">
+                <h3>Sobre Nosotros</h3>
+                <p>Tienda de alimentos comprometida con la calidad y el servicio al cliente.</p>
+            </section>
+            <section class="contact-section">
+                <h3>Contacto</h3>
+                <p>Email: jmora03101@gmail.com</p>
+                <p>Teléfono: +53 5554 3577</p>
+            </section>
+            <section class="social-section">
+                <h3>Síguenos</h3>
+                <p>Redes sociales</p>
+                <ul class="social-links">
+                    <li><a href="https://www.facebook.com/profile.php?id=100022601491740&mibextid=JRoKGi" class="facebook">Facebook</a></li>
+                    <li><a href="https://wa.me/5355543577" class="whatsapp">WhatsApp</a></li>
+                </ul>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tienda de Alimentos. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="menu.js"></script>
+    <script src="productos.js"></script>
+    <script>
+        function addToCart(productId, productName, productPrice) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const product = { id: productId, name: productName, price: productPrice, quantity: 1 };
+
+            const existingProduct = cart.find(item => item.id === productId);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            // Show notification instead of alert
+            showCartNotification(`${productName} agregado al carrito`);
+        }
+
+        function showCartNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'cart-notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
