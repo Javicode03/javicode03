@@ -3,31 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Tienda de Alimentos</title>
+    <title>Ofertas - Tienda de Alimentos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <h1>Contacto</h1>
+            <h1>Ofertas Especiales</h1>
         </div>
         <button class="hamburger" onclick="toggleMenu()">☰</button>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
+                <li><a href="categories.html">Categorías</a></li>
+                <li><a href="offers.html">Ofertas</a></li>
+                <li><a href="contact.html">Contacto</a></li>
                 <li><a href="cart.html">Carrito</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="contact-form">
-            <form>
-                <input type="text" placeholder="Nombre" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Mensaje" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
+        <section class="offer-list">
+            <div class="offer-item">
+                <h3>Manzanas</h3>
+                <p>Descuento del 20%</p>
+            </div>
+            <div class="offer-item">
+                <h3>Leche</h3>
+                <p>Compra 2 y lleva 1 gratis</p>
+            </div>
         </section>
     </main>
     <footer>

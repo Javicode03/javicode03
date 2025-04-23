@@ -1,39 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    loadProductsFromStorage();
     setupProductControls();
 });
-
-window.addEventListener('productsUpdated', loadProductsFromStorage);
-
-function loadProductsFromStorage() {
-    const products = JSON.parse(localStorage.getItem('products')) || [];
-    const categories = ['confituras', 'comidas', 'bebidas'];
-    
-    categories.forEach(category => {
-        const categoryProducts = products.filter(p => p.category === category);
-        const container = document.querySelector(`#${category} .product-grid`);
-        if (container) {
-            container.innerHTML = categoryProducts.map(product => `
-                <div class="product-card">
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <span class="price">$${product.price}</span>
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus">-</button>
-                        <input type="number" value="1" min="1" class="quantity-input">
-                        <button class="quantity-btn plus">+</button>
-                    </div>
-                    <button class="add-to-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">
-                        Añadir al carrito
-                    </button>
-                </div>
-            `).join('');
-        }
-    });
-    
-    setupProductControls();
-}
 
 function setupProductControls() {
     // Configurar controles de cantidad
@@ -65,13 +32,13 @@ function setupProductControls() {
                 const existingProduct = cart.find(p => p.name === product.name);
                 
                 if (existingProduct) {
-                    existingProduct.quantity = product.quantity;
+                    existingProduct.quantity += product.quantity;
                 } else {
                     cart.push(product);
                 }
                 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                showNotification('Producto añadido');
+                showNotification('Producto añadido al carrito');
             } catch (error) {
                 console.error('Error al añadir al carrito:', error);
                 showNotification('Error al añadir al carrito', 'error');

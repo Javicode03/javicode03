@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     setupQuantityControls();
     setupAddToCartButtons();
-    updateCart();
+    updateCartDisplay();
 });
 
 function setupQuantityControls() {
@@ -18,9 +18,15 @@ function setupQuantityControls() {
             }
             
             input.value = currentValue;
+            
+            // Update cart if we're in the cart page
+            if (this.closest('.cart-item')) {
+                updateItemQuantity(this.closest('.cart-item').dataset.productName, currentValue);
+            }
         });
     });
 
+    // Validate manual input
     document.querySelectorAll('.quantity-input').forEach(input => {
         input.addEventListener('change', function() {
             let value = parseInt(this.value) || 1;
@@ -55,13 +61,15 @@ function addToCart(product) {
         }
         
         localStorage.setItem('cart', JSON.stringify(cart));
+        showNotification('Producto añadido al carrito');
         updateCartBadge();
     } catch (error) {
         console.error('Error al añadir al carrito:', error);
+        showNotification('Error al añadir al carrito', 'error');
     }
 }
 
-function updateCart() {
+function updateCartDisplay() {
     const cartSection = document.querySelector('.cart-items');
     if (!cartSection) return;
 
@@ -74,60 +82,74 @@ function updateCart() {
         }
 
         let total = 0;
-        let html = '<table class="cart-table"><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Total</th><th>Acciones</th></tr></thead><tbody>';
+        let html = '<div class="cart-list">';
         
-        cart.forEach((item, index) => {
+        cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             html += `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>$${item.price.toFixed(2)}</td>
-                    <td>
+                <div class="cart-item" data-product-name="${item.name}">
+                    <h3>${item.name}</h3>
+                    <div class="cart-item-controls">
                         <div class="quantity-controls">
-                            <button class="quantity-btn minus" onclick="updateQuantity(${index}, -1)">-</button>
-                            <span>${item.quantity}</span>
-                            <button class="quantity-btn plus" onclick="updateQuantity(${index}, 1)">+</button>
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" value="${item.quantity}" min="1" max="99" class="quantity-input">
+                            <button class="quantity-btn plus">+</button>
                         </div>
-                    </td>
-                    <td>$${itemTotal.toFixed(2)}</td>
-                    <td><button onclick="removeItem(${index})" class="remove-item">×</button></td>
-                </tr>
+                        <p class="item-price">$${item.price}</p>
+                        <p class="item-subtotal">$${itemTotal.toFixed(2)}</p>
+                        <button onclick="removeFromCart('${item.name}')" class="remove-item">×</button>
+                    </div>
+                </div>
             `;
         });
 
-        html += `</tbody></table>
+        html += `</div>
             <div class="cart-total">
                 <h2>Total: $${total.toFixed(2)}</h2>
                 <button onclick="clearCart()" class="clear-cart">Vaciar Carrito</button>
-                <button onclick="sendToWhatsApp()" class="submit-btn">Realizar Pedido</button>
+                <button onclick="checkout()" class="checkout-btn">Finalizar Compra</button>
             </div>`;
         
         cartSection.innerHTML = html;
+        setupQuantityControls();
     } catch (error) {
         console.error('Error al mostrar el carrito:', error);
         cartSection.innerHTML = '<p>Error al cargar el carrito</p>';
     }
 }
 
-function updateQuantity(index, change) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart[index].quantity = Math.max(1, cart[index].quantity + change);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCart();
+function updateItemQuantity(productName, newQuantity) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const item = cart.find(p => p.name === productName);
+    if (item) {
+        item.quantity = newQuantity;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+    }
 }
 
-function removeItem(index) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.splice(index, 1);
+function removeFromCart(productName) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.name !== productName);
     localStorage.setItem('cart', JSON.stringify(cart));
-    updateCart();
+    updateCartDisplay();
 }
 
 function clearCart() {
     localStorage.removeItem('cart');
-    updateCart();
-    updateCartBadge();
+    updateCartDisplay();
+}
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 function updateCartBadge() {
@@ -144,25 +166,7 @@ function updateCartBadge() {
     badge.style.display = totalItems ? 'block' : 'none';
 }
 
-function sendToWhatsApp() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart.length === 0) {
-        alert('El carrito está vacío');
-        return;
-    }
-
-    let message = '*Nuevo Pedido*%0A%0A';
-    let total = 0;
-
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        message += `*${item.name}*%0A`;
-        message += `Cantidad: ${item.quantity}%0A`;
-        message += `Precio: $${item.price.toFixed(2)}%0A`;
-        message += `Subtotal: $${itemTotal.toFixed(2)}%0A%0A`;
-    });
-
-    message += `*Total del Pedido: $${total.toFixed(2)}*`;
-    window.open(`https://wa.me/5355543577?text=${message}`, '_blank');
+function checkout() {
+    // Implementar lógica de checkout aquí
+    alert('Función de checkout en desarrollo');
 }
